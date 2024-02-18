@@ -3,6 +3,7 @@ from django.http import JsonResponse
 from django.views.decorators.csrf import csrf_exempt
 import hashlib
 from .models import User_info
+from django.contrib import messages
 
 @csrf_exempt
 def submit_form(request):
@@ -19,7 +20,9 @@ def submit_form(request):
         
         user_info = User_info(name = name, email=email, phone=phone, identifier=identifier)
         user_info.save()
+        messages.success(request, 'Form submitted successfully.')
+
         
-        return JsonResponse({'message': 'Form submitted successfully.'})
+    return render(request, 'form.html')
 
 
